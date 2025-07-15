@@ -1,0 +1,10 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"moduleResolution": "bundler",
+		"sourceMap": true,
+		"types": ["svelte"]
+	},
+	"include": ["src", "vite.config.ts", "svelte.config.js"],
+	"exclude": ["node_modules", ".svelte-kit", "dist"]
+}

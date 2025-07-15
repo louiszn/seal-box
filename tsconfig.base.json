@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "es2024",
+		"module": "esnext",
+		"strict": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
+		"paths": {
+			"$types/*": ["packages/types/src/*"]
+		}
+	}
+}
