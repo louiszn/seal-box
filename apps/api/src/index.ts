@@ -1,14 +1,29 @@
 import Fastify from "fastify";
 
-import { loggerOptions } from "@sealbox/libs";
+import { logger } from "@sealbox/libs";
 
 import config from "./config.js";
 
-const fastify = Fastify({
-	logger: loggerOptions,
-});
+import { useRoutes } from "./routes/index.js";
+import { testConnection } from "./db/index.js";
 
-fastify.listen({
-	port: config.port,
-	host: "0.0.0.0",
-});
+const fastify = Fastify();
+
+useRoutes(fastify);
+
+try {
+	await testConnection();
+	logger.info("Connected to database");
+} catch (error) {
+	logger.error("Failed to connect to database:", error);
+}
+
+fastify.listen(
+	{
+		port: config.port,
+		host: "0.0.0.0",
+	},
+	() => {
+		logger.info(`Server is listening at ${config.port}`);
+	},
+);
