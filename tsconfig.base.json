@@ -4,10 +4,6 @@
 		"module": "esnext",
 		"strict": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
-		"baseUrl": ".",
-		"paths": {
-			"$types/*": ["packages/types/src/*"]
-		}
+		"forceConsistentCasingInFileNames": true
 	}
 }
