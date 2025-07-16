@@ -7,14 +7,16 @@
 		"packages/*"
 	],
 	"scripts": {
-		"start:api": "pnpm --filter @sealbox/api start",
-		"start:web": "pnpm --filter @sealbox/web start",
-		"dev:api": "pnpm --filter @sealbox/api dev",
-		"dev:web": "pnpm --filter @sealbox/web dev",
-		"build:packages": "pnpm -r --filter ./packages/** build",
-		"build:api": "pnpm build:packages && pnpm --filter @sealbox/api build",
-		"build:web": "pnpm build:packages && pnpm --filter @sealbox/web build",
+		"run:api": "pnpm -F @sealbox/api",
+		"run:web": "pnpm -F @sealbox/web",
+		"build:packages": "pnpm -r -F ./packages/** build",
+		"build:api": "pnpm run:api build",
+		"build:web": "pnpm run:web build",
 		"build": "pnpm -r run build",
+		"start:api": "pnpm run:api start",
+		"start:web": "pnpm run:web start",
+		"dev:api": "pnpm run:api dev",
+		"dev:web": "pnpm run:web dev",
 		"format": "prettier . -w",
 		"prepare": "husky"
 	},
