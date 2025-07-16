@@ -1,8 +1,24 @@
-import pino, { LoggerOptions } from "pino";
+import { createLogger, transports, format } from "winston";
+import chalk, { ChalkInstance } from "chalk";
 
-export const loggerOptions: LoggerOptions = {
-	transport: { target: "pino-pretty", options: { ignore: "pid" } },
-	level: "info",
+const LEVEL_COLOR_MAP: Record<string, ChalkInstance> = {
+	info: chalk.bgBlue.white,
+	error: chalk.bgRed.white,
+	warn: chalk.bgYellow.white,
 };
 
-export const logger = pino(loggerOptions);
+function getLevelTag(level: string) {
+	const color = LEVEL_COLOR_MAP[level] ?? chalk.white;
+	return color(` ${level.toUpperCase()} `);
+}
+
+export const logger = createLogger({
+	transports: [new transports.Console()],
+	format: format.combine(
+		format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+		format.errors({ stack: true }),
+		format.printf(({ level, message, timestamp, stack }) => {
+			return `${chalk.gray(timestamp)}  ${getLevelTag(level)}  ${stack ?? message}`;
+		}),
+	),
+});
