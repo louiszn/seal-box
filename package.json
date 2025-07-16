@@ -6,6 +6,14 @@
 		"packages/*"
 	],
 	"scripts": {
+		"start:api": "pnpm --filter @sealbox/api start",
+		"start:web": "pnpm --filter @sealbox/web start",
+		"dev:api": "pnpm --filter @sealbox/api dev",
+		"dev:web": "pnpm --filter @sealbox/web dev",
+		"build:packages": "pnpm -r --filter ./packages/** build",
+		"build:api": "pnpm build:packages && pnpm --filter @sealbox/api build",
+		"build:web": "pnpm build:packages && pnpm --filter @sealbox/web build",
+		"build": "pnpm -r run build",
 		"format": "prettier . -w",
 		"prepare": "husky"
 	},
