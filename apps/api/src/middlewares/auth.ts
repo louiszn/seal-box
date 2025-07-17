@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import { devicesTable } from "../db/schema/devices.js";
 import { usersTable } from "../db/schema/users.js";
 
-import { verifyAccessToken } from "@sealbox/libs";
+import { verifyAccessToken } from "@seal-box/libs";
 
 import config from "../config.js";
 

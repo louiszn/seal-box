@@ -1,6 +1,6 @@
 import Fastify from "fastify";
 
-import { logger } from "@sealbox/libs";
+import { logger } from "@seal-box/libs";
 
 import config from "./config.js";
 

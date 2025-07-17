@@ -1,5 +1,5 @@
 {
-	"name": "@sealbox/libs",
+	"name": "@seal-box/libs",
 	"private": true,
 	"type": "module",
 	"main": "dist/index.js",

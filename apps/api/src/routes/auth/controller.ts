@@ -14,7 +14,7 @@ import {
 	verifyAccessToken,
 	verifyPassword,
 	verifyRefreshToken,
-} from "@sealbox/libs";
+} from "@seal-box/libs";
 
 import config from "../../config.js";
 

@@ -1,5 +1,5 @@
 {
-	"name": "@sealbox/types",
+	"name": "@seal-box/types",
 	"private": true,
 	"type": "module",
 	"types": "src/index.d.ts"

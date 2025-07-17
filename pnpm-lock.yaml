@@ -50,7 +50,7 @@ importers:
       '@fastify/cookie':
         specifier: ^11.0.2
         version: 11.0.2
-      '@sealbox/libs':
+      '@seal-box/libs':
         specifier: workspace:*
         version: link:../../packages/libs
       dotenv:
@@ -75,6 +75,9 @@ importers:
         specifier: ^4.0.5
         version: 4.0.5
     devDependencies:
+      '@seal-box/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       '@types/node':
         specifier: ^24.0.14
         version: 24.0.14
@@ -133,6 +136,8 @@ importers:
       tsup:
         specifier: ^8.5.0
         version: 8.5.0(jiti@2.4.2)(postcss@8.5.6)(tsx@4.20.3)(typescript@5.8.3)(yaml@2.8.0)
+
+  packages/types: {}
 
 packages:
 

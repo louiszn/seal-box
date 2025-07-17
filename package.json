@@ -7,8 +7,8 @@
 		"packages/*"
 	],
 	"scripts": {
-		"run:api": "pnpm -F @sealbox/api",
-		"run:web": "pnpm -F @sealbox/web",
+		"run:api": "pnpm -F @seal-box/api",
+		"run:web": "pnpm -F @seal-box/web",
 		"build:packages": "pnpm -r -F ./packages/** build",
 		"build:api": "pnpm run:api build",
 		"build:web": "pnpm run:web build",
