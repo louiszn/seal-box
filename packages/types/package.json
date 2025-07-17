@@ -1,0 +1,6 @@
+{
+	"name": "@sealbox/types",
+	"private": true,
+	"type": "module",
+	"types": "src/index.d.ts"
+}
