@@ -5,9 +5,13 @@
 	"scripts": {
 		"dev": "tsx src/index.ts",
 		"start": "node dist/index.js",
-		"build": "tsup"
+		"build": "tsup",
+		"db:run": "NODE_OPTIONS='--import tsx' drizzle-kit",
+		"db:generate": "pnpm db:run generate",
+		"db:push": "pnpm db:run push"
 	},
 	"devDependencies": {
+		"@sealbox/types": "workspace:*",
 		"@types/node": "^24.0.14",
 		"@types/pg": "^8.15.4",
 		"drizzle-kit": "^0.31.4",
@@ -15,12 +19,14 @@
 		"tsx": "^4.20.3"
 	},
 	"dependencies": {
+		"@fastify/cookie": "^11.0.2",
 		"@sealbox/libs": "workspace:*",
 		"dotenv": "^17.2.0",
 		"drizzle-orm": "^0.44.3",
 		"fastify": "^5.4.0",
 		"pg": "^8.16.3",
 		"pino-pretty": "^13.0.0",
+		"ua-parser-js": "^2.0.4",
 		"zod": "^4.0.5"
 	}
 }
