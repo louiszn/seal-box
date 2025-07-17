@@ -14,6 +14,8 @@ const envSchema = z.object({
 	NODE_ENV: z.enum(["development", "production"]).default("development"),
 	DATABASE_URL: z.string().nonempty(),
 	PEPPER_KEY: z.string().nonempty(),
+	JWT_SECRET: z.string().nonempty(),
+	COOKIE_SECRET: z.string().nonempty(),
 });
 
 const result = envSchema.safeParse(process.env);
@@ -30,6 +32,12 @@ const config = {
 	nodeEnv: data.NODE_ENV,
 	databaseURL: data.DATABASE_URL,
 	pepperKey: data.PEPPER_KEY,
+	jwtSecret: data.JWT_SECRET,
+	cookie: {
+		secure: data.NODE_ENV === "production",
+		httpOnly: true,
+		secret: data.COOKIE_SECRET,
+	},
 };
 
 export default config;

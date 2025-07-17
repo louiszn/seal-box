@@ -6,9 +6,11 @@ import config from "./config.js";
 
 import { useRoutes } from "./routes/index.js";
 import { testConnection } from "./db/index.js";
+import { usePlugins } from "./plugins/index.js";
 
 const fastify = Fastify();
 
+usePlugins(fastify);
 useRoutes(fastify);
 
 try {
