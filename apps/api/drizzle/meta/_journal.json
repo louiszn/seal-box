@@ -8,6 +8,13 @@
 			"when": 1752662768290,
 			"tag": "0000_perpetual_wallop",
 			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1752740859285,
+			"tag": "0001_curved_morlocks",
+			"breakpoints": true
 		}
 	]
 }
