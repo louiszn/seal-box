@@ -34,7 +34,7 @@ export async function hashPassword(
 	return `${raw.salt}:${raw.hash}`;
 }
 
-export async function verifyPassword(password: string, pepper: string, stored: string) {
+export async function verifyPassword(password: string, stored: string, pepper: string) {
 	const [salt, storedHashHex] = stored.split(":");
 
 	if (!salt || !storedHashHex) {
