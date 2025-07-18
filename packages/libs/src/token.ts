@@ -2,6 +2,9 @@ import { SignJWT, jwtVerify } from "jose";
 
 const ALGORITHM = "HS256";
 
+export const REFRESH_TOKEN_AGE = 30 * 24 * 60; // 30 days in seconds
+export const ACCESS_TOKEN_AGE = 15 * 60; // 15 mins in seconds
+
 export type MappedToken<Payload> = Payload & { expiresAt?: Date; createdAt?: Date };
 
 function getEncodedSecret(secret: string) {
@@ -12,7 +15,7 @@ export function signAccessToken(userId: string, deviceId: string, secret: string
 	const signer = new SignJWT({ userId, deviceId })
 		.setProtectedHeader({ alg: ALGORITHM })
 		.setIssuedAt(createdAt)
-		.setExpirationTime("15m");
+		.setExpirationTime(ACCESS_TOKEN_AGE);
 
 	const encodedSecret = getEncodedSecret(secret);
 
@@ -28,7 +31,7 @@ export function signRefreshToken(
 	const signer = new SignJWT({ userId, deviceId })
 		.setProtectedHeader({ alg: ALGORITHM })
 		.setIssuedAt(createdAt)
-		.setExpirationTime("30d");
+		.setExpirationTime(REFRESH_TOKEN_AGE);
 
 	const encodedSecret = getEncodedSecret(secret);
 

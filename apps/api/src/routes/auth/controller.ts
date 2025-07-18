@@ -15,11 +15,10 @@ import {
 	verifyAccessToken,
 	verifyPassword,
 	verifyRefreshToken,
+	REFRESH_TOKEN_AGE,
 } from "@seal-box/libs";
 
 import config from "../../config.js";
-
-const REFRESH_TOKEN_AGE = 30 * 24 * 60; // 30 days
 
 export async function registerHandler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
 	const parseResult = await registerSchema.safeParseAsync(request.body);
