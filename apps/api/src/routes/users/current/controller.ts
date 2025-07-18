@@ -1,19 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { eq } from "drizzle-orm";
-import db from "../../db/index.js";
+import { InferSelectModel } from "drizzle-orm";
 
-import { usersTable } from "../../db/schema/users.js";
+import { usersTable } from "../../../db/schema/users.js";
 
 import { APIUser } from "@seal-box/types";
 
-export async function getUserByIdHandler(
+export async function getCurrentUser(
 	request: FastifyRequest<{ Params: { userId: string } }>,
 	reply: FastifyReply,
 ) {
-	const { userId } = request.params;
-
-	const [user] = await db.select().from(usersTable).where(eq(usersTable.id, userId));
+	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
 
 	if (!user) {
 		reply.status(404).send({
