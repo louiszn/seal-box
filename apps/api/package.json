@@ -19,6 +19,7 @@
 		"tsx": "^4.20.3"
 	},
 	"dependencies": {
+		"@seal-box/types": "workspace:*",
 		"@fastify/cookie": "^11.0.2",
 		"@seal-box/libs": "workspace:*",
 		"dotenv": "^17.2.0",
