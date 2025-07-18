@@ -1,9 +1,12 @@
 import { FastifyInstance } from "fastify";
 import { getUserByIdHandler } from "./controller.js";
+
 import currentUserRoute from "./current/index.js";
 
-export default function usersRoute(app: FastifyInstance) {
-	app.get("/:userId", getUserByIdHandler);
+import { APIUserRoute } from "@seal-box/enums";
 
-	app.register(currentUserRoute, { prefix: "/@me" });
+export default function usersRoute(app: FastifyInstance) {
+	app.get(APIUserRoute.GetById, getUserByIdHandler);
+
+	app.register(currentUserRoute, { prefix: APIUserRoute.Current });
 }
