@@ -82,7 +82,7 @@ export async function loginHandler(request: FastifyRequest, reply: FastifyReply)
 	}
 
 	const createdAt = new Date();
-	createdAt.setMilliseconds(0);
+	createdAt.setMilliseconds(0); // Avoid delay between token and device timestamp
 
 	const userAgent = request.headers["user-agent"] || "";
 
@@ -174,7 +174,7 @@ export async function refreshTokenHandler(
 
 	const [device] = await db.select().from(devicesTable).where(eq(devicesTable.id, deviceId));
 
-	if (!device || device.userId !== userId || device.lastSeenAt !== createdAt) {
+	if (!device || device.userId !== userId || device.lastSeenAt.getTime() !== createdAt?.getTime()) {
 		reply.status(401).send({
 			error: "Invalid token specified",
 		});
@@ -183,6 +183,7 @@ export async function refreshTokenHandler(
 	}
 
 	const newCreatedAt = new Date();
+	newCreatedAt.setMilliseconds(0); // Avoid delay between token and device timestamp
 
 	const newAccessToken = await signAccessToken(userId, deviceId, config.jwtSecret, newCreatedAt);
 	const newRefreshToken = await signRefreshToken(userId, deviceId, config.jwtSecret, newCreatedAt);
