@@ -13,6 +13,11 @@ const fastify = Fastify();
 usePlugins(fastify);
 useRoutes(fastify);
 
+fastify.setErrorHandler((error, request, reply) => {
+	logger.error(error);
+	reply.status(500).send({ error: "Internal Server Error" });
+});
+
 try {
 	await testConnection();
 	logger.info("Connected to database");
