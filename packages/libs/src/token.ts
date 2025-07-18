@@ -1,9 +1,10 @@
-import { SignJWT, jwtVerify } from "jose";
+import { JWTPayload, SignJWT, jwtVerify } from "jose";
+import ms from "ms";
 
 const ALGORITHM = "HS256";
 
-export const REFRESH_TOKEN_AGE = 30 * 24 * 60; // 30 days in seconds
-export const ACCESS_TOKEN_AGE = 15 * 60; // 15 mins in seconds
+export const REFRESH_TOKEN_AGE = 2_592_000_000; // 30 days in ms
+export const ACCESS_TOKEN_AGE = 900_000; // 15 minutes in ms
 
 export type MappedToken<Payload> = Payload & { expiresAt?: Date; createdAt?: Date };
 
@@ -11,15 +12,27 @@ function getEncodedSecret(secret: string) {
 	return new TextEncoder().encode(secret);
 }
 
-export function signAccessToken(userId: string, deviceId: string, secret: string, createdAt: Date) {
-	const signer = new SignJWT({ userId, deviceId })
-		.setProtectedHeader({ alg: ALGORITHM })
-		.setIssuedAt(createdAt)
-		.setExpirationTime(ACCESS_TOKEN_AGE);
-
+export function signToken(
+	payload: JWTPayload,
+	secret: string,
+	createdAt: Date,
+	duration: string | Date | number,
+) {
 	const encodedSecret = getEncodedSecret(secret);
 
-	return signer.sign(encodedSecret);
+	if (typeof duration === "number") {
+		duration = ms(duration);
+	}
+
+	return new SignJWT(payload)
+		.setProtectedHeader({ alg: ALGORITHM })
+		.setIssuedAt(createdAt)
+		.setExpirationTime(duration)
+		.sign(encodedSecret);
+}
+
+export function signAccessToken(userId: string, deviceId: string, secret: string, createdAt: Date) {
+	return signToken({ userId, deviceId }, secret, createdAt, ACCESS_TOKEN_AGE);
 }
 
 export function signRefreshToken(
@@ -28,14 +41,7 @@ export function signRefreshToken(
 	secret: string,
 	createdAt: Date,
 ) {
-	const signer = new SignJWT({ userId, deviceId })
-		.setProtectedHeader({ alg: ALGORITHM })
-		.setIssuedAt(createdAt)
-		.setExpirationTime(REFRESH_TOKEN_AGE);
-
-	const encodedSecret = getEncodedSecret(secret);
-
-	return signer.sign(encodedSecret);
+	return signToken({ userId, deviceId }, secret, createdAt, REFRESH_TOKEN_AGE);
 }
 
 export async function verifyToken<Payload>(
