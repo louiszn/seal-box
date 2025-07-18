@@ -9,7 +9,7 @@ import { modifyCurrentUserSchema } from "./schema.js";
 
 import db from "../../../db/index.js";
 
-export async function getCurrentUser(request: FastifyRequest, reply: FastifyReply) {
+export async function getCurrentUserHandler(request: FastifyRequest, reply: FastifyReply) {
 	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
 
 	reply.status(200).send({
@@ -19,7 +19,7 @@ export async function getCurrentUser(request: FastifyRequest, reply: FastifyRepl
 	} satisfies APIUser);
 }
 
-export async function modifyCurrentUser(request: FastifyRequest, reply: FastifyReply) {
+export async function modifyCurrentUserHandler(request: FastifyRequest, reply: FastifyReply) {
 	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
 
 	const payload = await modifyCurrentUserSchema.safeParseAsync(request.body);
