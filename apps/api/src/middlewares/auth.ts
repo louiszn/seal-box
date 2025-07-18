@@ -29,6 +29,7 @@ export async function authHandler(request: FastifyRequest, reply: FastifyReply) 
 	const tokenPayload = await verifyAccessToken(token, config.jwtSecret);
 
 	if (!tokenPayload) {
+		sendUnauthorized();
 		return;
 	}
 
