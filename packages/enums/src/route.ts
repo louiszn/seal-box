@@ -22,12 +22,25 @@ export enum APIAuthRoute {
 	Logout = "/logout",
 }
 
+export enum APICategoriesRoute {
+	WithId = "/:id",
+}
+
+export enum APICategoryRoute {
+	Get = "/",
+	Modify = "/",
+}
+
 export enum APIRoute {
 	GetCurrentUser = `${APIRoutePrefix.Users}${APIUsersRoute.Current}${APICurrentUserRoute.Get}`,
 	ModifyCurrentUser = `${APIRoutePrefix.Users}${APIUsersRoute.Current}${APICurrentUserRoute.Modify}`,
 	GetUserById = `${APIRoutePrefix.Users}${APIUsersRoute.GetById}`,
+
 	Register = `${APIRoutePrefix.Auth}${APIAuthRoute.Register}`,
 	Login = `${APIRoutePrefix.Auth}${APIAuthRoute.Login}`,
 	RefreshToken = `${APIRoutePrefix.Auth}${APIAuthRoute.RefreshToken}`,
 	Logout = `${APIRoutePrefix.Auth}${APIAuthRoute.Logout}`,
+
+	GetCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Get}`,
+	ModifyCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Modify}`,
 }
