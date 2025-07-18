@@ -1,5 +1,5 @@
 {
-	"name": "@seal-box/types",
+	"name": "@seal-box/enums",
 	"private": true,
 	"type": "module",
 	"main": "dist/index.js",
