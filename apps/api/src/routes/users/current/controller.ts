@@ -6,10 +6,7 @@ import { usersTable } from "../../../db/schema/users.js";
 
 import { APIUser } from "@seal-box/types";
 
-export async function getCurrentUser(
-	request: FastifyRequest<{ Params: { userId: string } }>,
-	reply: FastifyReply,
-) {
+export async function getCurrentUser(request: FastifyRequest, reply: FastifyReply) {
 	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
 
 	if (!user) {
