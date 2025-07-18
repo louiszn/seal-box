@@ -20,6 +20,8 @@ import {
 
 import config from "../../config.js";
 
+import { APILoginResponse, APIRefreshTokenResponse } from "@seal-box/types";
+
 export async function registerHandler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
 	const parseResult = await registerSchema.safeParseAsync(request.body);
 
@@ -114,7 +116,7 @@ export async function loginHandler(request: FastifyRequest, reply: FastifyReply)
 
 	reply.status(200).send({
 		accessToken,
-	});
+	} satisfies APILoginResponse);
 }
 
 export async function refreshTokenHandler(
@@ -198,7 +200,7 @@ export async function refreshTokenHandler(
 
 	reply.status(200).send({
 		accessToken: newAccessToken,
-	});
+	} satisfies APIRefreshTokenResponse);
 }
 
 export async function logoutHandler(request: FastifyRequest, reply: FastifyReply): Promise<void> {
