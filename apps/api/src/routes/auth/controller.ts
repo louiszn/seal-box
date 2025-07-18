@@ -8,6 +8,7 @@ import db from "../../db/index.js";
 import { devicesTable, usersTable } from "../../db/schema/index.js";
 
 import {
+	generateId,
 	hashPassword,
 	signAccessToken,
 	signRefreshToken,
@@ -48,6 +49,7 @@ export async function registerHandler(request: FastifyRequest, reply: FastifyRep
 	const hashedPassword = await hashPassword(data.password, config.pepperKey);
 
 	await db.insert(usersTable).values({
+		id: generateId(),
 		email: data.email,
 		password: hashedPassword,
 	});
@@ -96,6 +98,7 @@ export async function loginHandler(request: FastifyRequest, reply: FastifyReply)
 	const [device] = await db
 		.insert(devicesTable)
 		.values({
+			id: generateId(),
 			name: deviceName,
 			userId: user.id,
 			createdAt,

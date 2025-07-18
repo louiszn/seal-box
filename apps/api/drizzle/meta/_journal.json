@@ -15,6 +15,13 @@
 			"when": 1752740859285,
 			"tag": "0001_curved_morlocks",
 			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "7",
+			"when": 1752819729533,
+			"tag": "0002_mighty_bushwacker",
+			"breakpoints": true
 		}
 	]
 }

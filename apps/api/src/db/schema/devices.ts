@@ -1,9 +1,10 @@
-import { pgTable, text, uuid, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { usersTable } from "./users.js";
+import { MAX_SNOWFLAKE_LENGTH } from "@seal-box/libs";
 
 export const devicesTable = pgTable("devices", {
-	id: uuid("id").defaultRandom().primaryKey(),
-	userId: uuid("user_id")
+	id: varchar("id", { length: MAX_SNOWFLAKE_LENGTH }).notNull().primaryKey(),
+	userId: varchar("user_id", { length: MAX_SNOWFLAKE_LENGTH })
 		.notNull()
 		.references(() => usersTable.id, { onDelete: "cascade" }),
 	name: text("name").notNull(),
