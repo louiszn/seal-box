@@ -8,6 +8,7 @@
 		"build": "tsup"
 	},
 	"dependencies": {
+		"@sapphire/snowflake": "^3.5.5",
 		"chalk": "^5.4.1",
 		"jose": "^6.0.12",
 		"winston": "^3.17.0"
