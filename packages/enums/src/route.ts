@@ -5,7 +5,7 @@ export enum APIRoutePrefix {
 	Categories = "/categories",
 }
 
-export enum APIUserRoute {
+export enum APIUsersRoute {
 	GetById = `/:id`,
 	Current = `/@me`,
 }
@@ -23,9 +23,9 @@ export enum APIAuthRoute {
 }
 
 export enum APIRoute {
-	GetCurrentUser = `${APIRoutePrefix.Users}${APIUserRoute.Current}${APICurrentUserRoute.Get}`,
-	ModifyCurrentUser = `${APIRoutePrefix.Users}${APIUserRoute.Current}${APICurrentUserRoute.Modify}`,
-	GetUserById = `${APIRoutePrefix.Users}${APIUserRoute.GetById}`,
+	GetCurrentUser = `${APIRoutePrefix.Users}${APIUsersRoute.Current}${APICurrentUserRoute.Get}`,
+	ModifyCurrentUser = `${APIRoutePrefix.Users}${APIUsersRoute.Current}${APICurrentUserRoute.Modify}`,
+	GetUserById = `${APIRoutePrefix.Users}${APIUsersRoute.GetById}`,
 	Register = `${APIRoutePrefix.Auth}${APIAuthRoute.Register}`,
 	Login = `${APIRoutePrefix.Auth}${APIAuthRoute.Login}`,
 	RefreshToken = `${APIRoutePrefix.Auth}${APIAuthRoute.RefreshToken}`,
