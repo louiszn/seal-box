@@ -3,3 +3,5 @@ export interface APIUser {
 	email: string;
 	createdAt: number;
 }
+
+export type APIModifyCurrentUserBody = Partial<Omit<APIUser, "id" | "createdAt">>;
