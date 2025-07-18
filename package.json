@@ -22,7 +22,7 @@
 	},
 	"keywords": [],
 	"author": "louiszn",
-	"license": "MIT",
+	"license": "AGPL-3.0-only",
 	"packageManager": "pnpm@10.13.1",
 	"devDependencies": {
 		"@eslint/compat": "^1.3.1",
