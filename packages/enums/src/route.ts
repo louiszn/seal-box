@@ -23,6 +23,8 @@ export enum APIAuthRoute {
 }
 
 export enum APICategoriesRoute {
+	Get = "/",
+	Create = "/",
 	WithId = "/:id",
 }
 
@@ -41,6 +43,8 @@ export enum APIRoute {
 	RefreshToken = `${APIRoutePrefix.Auth}${APIAuthRoute.RefreshToken}`,
 	Logout = `${APIRoutePrefix.Auth}${APIAuthRoute.Logout}`,
 
+	GetCategories = `${APIRoutePrefix.Categories}${APICategoriesRoute.Get}`,
+	CreateCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.Create}`,
 	GetCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Get}`,
 	ModifyCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Modify}`,
 }
