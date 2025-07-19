@@ -6,7 +6,7 @@ export enum APIRoutePrefix {
 }
 
 export enum APIUsersRoute {
-	GetById = `/:id`,
+	GetById = `/:userId`,
 	Current = `/@me`,
 }
 
@@ -25,7 +25,7 @@ export enum APIAuthRoute {
 export enum APICategoriesRoute {
 	Get = "/",
 	Create = "/",
-	WithId = "/:id",
+	WithId = "/:categoryId",
 }
 
 export enum APICategoryRoute {
