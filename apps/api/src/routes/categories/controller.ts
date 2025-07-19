@@ -1,10 +1,14 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { usersTable } from "../../db/schema/users.js";
+
 import { eq, InferSelectModel } from "drizzle-orm";
-import { categoriesTable } from "../../db/schema/categories.js";
+
 import db from "../../db/index.js";
-import { APICategory } from "@seal-box/types";
+import { categoriesTable } from "../../db/schema/categories.js";
+import { usersTable } from "../../db/schema/users.js";
+
 import { createCategorySchema } from "./schema.js";
+import { toAPICategory } from "./transfer.js";
+
 import { generateId } from "@seal-box/libs";
 
 export async function getCategoriesHandler(request: FastifyRequest, reply: FastifyReply) {
@@ -16,16 +20,7 @@ export async function getCategoriesHandler(request: FastifyRequest, reply: Fasti
 		.where(eq(categoriesTable.userId, user.id));
 
 	reply.send(
-		// meow
-		categories.map((cat) => {
-			return {
-				id: cat.id,
-				name: cat.name,
-				description: cat.description,
-				type: cat.type,
-				createdAt: cat.createdAt.getTime(),
-			} satisfies APICategory;
-		}),
+		categories.map((cat) => toAPICategory(cat)), // meow
 	);
 }
 
@@ -58,11 +53,5 @@ export async function createCategoryHandler(request: FastifyRequest, reply: Fast
 		})
 		.returning();
 
-	reply.send({
-		id: category.id,
-		name: category.name,
-		description: category.description,
-		type: category.type,
-		createdAt: category.createdAt.getTime(),
-	} satisfies APICategory);
+	reply.send(toAPICategory(category));
 }
