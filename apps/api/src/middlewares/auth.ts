@@ -33,12 +33,7 @@ export async function authHandler(request: FastifyRequest, reply: FastifyReply) 
 		return;
 	}
 
-	const { deviceId, userId, createdAt, expiresAt } = tokenPayload;
-
-	if (!expiresAt || expiresAt.getTime() < Date.now()) {
-		sendUnauthorized();
-		return;
-	}
+	const { deviceId, userId, createdAt } = tokenPayload;
 
 	const [device] = await db.select().from(devicesTable).where(eq(devicesTable.id, deviceId));
 

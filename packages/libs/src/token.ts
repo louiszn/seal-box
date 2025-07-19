@@ -47,11 +47,14 @@ export function signRefreshToken(
 export async function verifyToken<Payload>(
 	token: string,
 	secret: string,
+	ignoreExp = false,
 ): Promise<MappedToken<Payload> | null> {
 	try {
 		const encodedSecret = getEncodedSecret(secret);
 
-		const rawData = await jwtVerify(token, encodedSecret);
+		const rawData = await jwtVerify(token, encodedSecret, {
+			clockTolerance: ignoreExp ? Infinity : undefined,
+		});
 
 		const { iat, exp, ...rest } = rawData.payload;
 
@@ -68,15 +71,16 @@ export async function verifyToken<Payload>(
 		}
 
 		return data;
-	} catch {
+	} catch (error) {
+		console.log(error);
 		return null;
 	}
 }
 
-export function verifyAccessToken(token: string, secret: string) {
-	return verifyToken<{ userId: string; deviceId: string }>(token, secret);
+export function verifyAccessToken(token: string, secret: string, ignoreExp = false) {
+	return verifyToken<{ userId: string; deviceId: string }>(token, secret, ignoreExp);
 }
 
-export function verifyRefreshToken(token: string, secret: string) {
-	return verifyToken<{ userId: string; deviceId: string }>(token, secret);
+export function verifyRefreshToken(token: string, secret: string, ignoreExp = false) {
+	return verifyToken<{ userId: string; deviceId: string }>(token, secret, ignoreExp);
 }

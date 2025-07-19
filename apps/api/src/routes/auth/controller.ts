@@ -148,7 +148,7 @@ export async function refreshTokenHandler(
 		return;
 	}
 
-	const accessTokenPayload = await verifyAccessToken(accessToken, config.jwtSecret);
+	const accessTokenPayload = await verifyAccessToken(accessToken, config.jwtSecret, true);
 	const refreshTokenPayload = await verifyRefreshToken(refreshToken, config.jwtSecret);
 
 	if (
@@ -165,15 +165,7 @@ export async function refreshTokenHandler(
 		return;
 	}
 
-	const { deviceId, userId, createdAt, expiresAt } = refreshTokenPayload;
-
-	if (!expiresAt || expiresAt.getTime() < Date.now()) {
-		reply.status(401).send({
-			error: "Invalid token specified",
-		});
-
-		return;
-	}
+	const { deviceId, userId, createdAt } = refreshTokenPayload;
 
 	const [device] = await db.select().from(devicesTable).where(eq(devicesTable.id, deviceId));
 
