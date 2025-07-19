@@ -13,3 +13,8 @@ export interface APICreateCategoryBody {
 	description?: string;
 	type: CategoryType;
 }
+
+export interface APIModifyCategoryBody {
+	name?: string;
+	description?: string;
+}

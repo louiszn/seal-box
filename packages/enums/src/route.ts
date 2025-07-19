@@ -31,6 +31,7 @@ export enum APICategoriesRoute {
 export enum APICategoryRoute {
 	Get = "/",
 	Modify = "/",
+	Delete = "/",
 }
 
 export enum APIRoute {
@@ -47,4 +48,5 @@ export enum APIRoute {
 	CreateCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.Create}`,
 	GetCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Get}`,
 	ModifyCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Modify}`,
+	DeleteCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Delete}`,
 }
