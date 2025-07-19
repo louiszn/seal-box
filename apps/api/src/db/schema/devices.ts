@@ -9,5 +9,5 @@ export const devicesTable = pgTable("devices", {
 		.references(() => usersTable.id, { onDelete: "cascade" }),
 	name: text("name").notNull(),
 	lastSeenAt: timestamp("last_seen_at", { mode: "date" }).defaultNow().notNull(),
-	createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+	createdAt: timestamp("created_at", { mode: "date" }).defaultNow(),
 });

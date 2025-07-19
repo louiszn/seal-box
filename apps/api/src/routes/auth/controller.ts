@@ -47,12 +47,15 @@ export async function registerHandler(request: FastifyRequest, reply: FastifyRep
 		return;
 	}
 
+	const createdAt = new Date();
+
 	const hashedPassword = await hashPassword(data.password, config.pepperKey);
 
 	await db.insert(usersTable).values({
-		id: generateId(),
+		id: generateId(createdAt),
 		email: data.email,
 		password: hashedPassword,
+		createdAt,
 	});
 
 	reply.status(201).send();
@@ -82,7 +85,7 @@ export async function loginHandler(request: FastifyRequest, reply: FastifyReply)
 	}
 
 	const createdAt = new Date();
-	createdAt.setMilliseconds(0); // Avoid delay between token and device timestamp
+	createdAt.setMilliseconds(0); // Avoid delay between token and device timestamp since jwt uses seconds
 
 	const userAgent = request.headers["user-agent"] || "";
 
@@ -99,7 +102,7 @@ export async function loginHandler(request: FastifyRequest, reply: FastifyReply)
 	const [device] = await db
 		.insert(devicesTable)
 		.values({
-			id: generateId(),
+			id: generateId(createdAt),
 			name: deviceName,
 			userId: user.id,
 			createdAt,
@@ -183,7 +186,7 @@ export async function refreshTokenHandler(
 	}
 
 	const newCreatedAt = new Date();
-	newCreatedAt.setMilliseconds(0); // Avoid delay between token and device timestamp
+	newCreatedAt.setMilliseconds(0); // Avoid delay between token and device timestamp since jwt uses seconds
 
 	const newAccessToken = await signAccessToken(userId, deviceId, config.jwtSecret, newCreatedAt);
 	const newRefreshToken = await signRefreshToken(userId, deviceId, config.jwtSecret, newCreatedAt);

@@ -6,5 +6,5 @@ export const usersTable = pgTable("users", {
 	id: varchar("id", { length: MAX_SNOWFLAKE_LENGTH }).notNull().primaryKey(),
 	email: text("email").notNull().unique(),
 	password: text("password").notNull(),
-	createdAt: timestamp("created_at").defaultNow().notNull(),
+	createdAt: timestamp("created_at").defaultNow(),
 });
