@@ -10,7 +10,7 @@ import { verifyAccessToken } from "@seal-box/libs";
 
 import config from "../config.js";
 
-export async function authHandler(request: FastifyRequest, reply: FastifyReply) {
+export async function requireAuth(request: FastifyRequest, reply: FastifyReply) {
 	const authorization = request.headers.authorization || "";
 
 	const [schema, token] = authorization.split(" ");
