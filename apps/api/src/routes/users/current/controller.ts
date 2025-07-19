@@ -32,11 +32,11 @@ export async function modifyCurrentUserHandler(request: FastifyRequest, reply: F
 		return;
 	}
 
-	const { data } = payload;
+	const { email } = payload.data;
 
 	const [newUser] = await db
 		.update(usersTable)
-		.set(data)
+		.set({ email })
 		.where(eq(usersTable.id, user.id))
 		.returning();
 
