@@ -2,5 +2,8 @@
 	"name": "@seal-box/types",
 	"private": true,
 	"type": "module",
-	"types": "src/index.d.ts"
+	"types": "src/index.d.ts",
+	"devDependencies": {
+		"@seal-box/enums": "workspace:*"
+	}
 }
