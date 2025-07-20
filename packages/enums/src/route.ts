@@ -86,4 +86,10 @@ export enum APIRoute {
 	GetIncome = `${APIRoutePrefix.Incomes}${APIIncomesRoute.WithId}${APIIncomeRoute.Get}`,
 	ModifyIncome = `${APIRoutePrefix.Incomes}${APIIncomesRoute.WithId}${APIIncomeRoute.Modify}`,
 	DeleteIncome = `${APIRoutePrefix.Incomes}${APIIncomesRoute.WithId}${APIIncomeRoute.Delete}`,
+
+	GetExpenses = `${APIRoutePrefix.Expenses}${APIExpensesRoute.Get}`,
+	CreateExpense = `${APIRoutePrefix.Expenses}${APIExpensesRoute.Create}`,
+	GetExpense = `${APIRoutePrefix.Expenses}${APIExpensesRoute.WithId}${APIExpenseRoute.Get}`,
+	ModifyExpense = `${APIRoutePrefix.Expenses}${APIExpensesRoute.WithId}${APIExpenseRoute.Modify}`,
+	DeleteExpense = `${APIRoutePrefix.Expenses}${APIExpensesRoute.WithId}${APIExpenseRoute.Delete}`,
 }
