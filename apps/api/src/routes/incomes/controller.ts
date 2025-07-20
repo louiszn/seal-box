@@ -6,6 +6,7 @@ import { and, eq } from "drizzle-orm";
 import { toAPIIncome } from "./transfer.js";
 import { createIncomeSchema } from "./schema.js";
 import { generateId } from "@seal-box/libs";
+import { CategoryType } from "@seal-box/enums";
 
 export async function getIncomesHandler(request: FastifyRequest, reply: FastifyReply) {
 	const { user } = request;
@@ -42,7 +43,13 @@ export async function createIncomeHandler(request: FastifyRequest, reply: Fastif
 		const [category] = await db
 			.select()
 			.from(categoriesTable)
-			.where(and(eq(categoriesTable.id, categoryId), eq(categoriesTable.userId, user.id)));
+			.where(
+				and(
+					eq(categoriesTable.id, categoryId),
+					eq(categoriesTable.type, CategoryType.Income),
+					eq(categoriesTable.userId, user.id),
+				),
+			);
 
 		if (!category) {
 			reply.status(404).send({

@@ -5,6 +5,7 @@ import db from "../../../db/index.js";
 import { and, eq } from "drizzle-orm";
 import { categoriesTable } from "../../../db/schema/categories.js";
 import { incomesTable } from "../../../db/schema/incomes.js";
+import { CategoryType } from "@seal-box/enums";
 
 export function getIncomeHandler(request: FastifyRequest, reply: FastifyReply) {
 	const { income } = request;
@@ -39,7 +40,13 @@ export async function modifyIncomeHandler(request: FastifyRequest, reply: Fastif
 		const [category] = await db
 			.select()
 			.from(categoriesTable)
-			.where(and(eq(categoriesTable.id, categoryId), eq(categoriesTable.userId, user.id)));
+			.where(
+				and(
+					eq(categoriesTable.id, categoryId),
+					eq(categoriesTable.type, CategoryType.Income),
+					eq(categoriesTable.userId, user.id),
+				),
+			);
 
 		if (!category) {
 			reply.status(404).send({
