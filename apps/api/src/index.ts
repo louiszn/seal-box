@@ -25,12 +25,9 @@ try {
 	logger.error("Failed to connect to database:", error);
 }
 
-fastify.listen(
-	{
-		port: config.port,
-		host: "0.0.0.0",
-	},
-	() => {
-		logger.info(`Server is listening at ${config.port}`);
-	},
-);
+await fastify.listen({
+	port: config.port,
+	host: "0.0.0.0",
+});
+
+logger.info(`Server is listening at ${config.port}`);
