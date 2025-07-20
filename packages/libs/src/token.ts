@@ -1,4 +1,4 @@
-import { JWTPayload, SignJWT, jwtVerify } from "jose";
+import { JWTPayload, SignJWT, jwtVerify, errors } from "jose";
 import ms from "ms";
 
 const ALGORITHM = "HS256";
@@ -72,7 +72,10 @@ export async function verifyToken<Payload>(
 
 		return data;
 	} catch (error) {
-		console.log(error);
+		if (![errors.JWTExpired, errors.JWTInvalid].some((E) => error instanceof E)) {
+			console.error(error);
+		}
+
 		return null;
 	}
 }
