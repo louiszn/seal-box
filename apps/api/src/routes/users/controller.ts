@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { eq } from "drizzle-orm";
 import db from "../../db/index.js";
 
-import { usersTable } from "../../db/schema/users.js";
+import { usersTable } from "../../db/schema/index.js";
 
 import { toAPIUser } from "./transfer.js";
 

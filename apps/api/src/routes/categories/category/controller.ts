@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { toAPICategory } from "../transfer.js";
 import { modifyCategorySchema } from "./schema.js";
 
-import { categoriesTable } from "../../../db/schema/categories.js";
+import { categoriesTable } from "../../../db/schema/index.js";
 import db from "../../../db/index.js";
 
 export function getCategoryHandler(request: FastifyRequest, reply: FastifyReply) {

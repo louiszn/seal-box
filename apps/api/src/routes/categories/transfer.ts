@@ -1,5 +1,5 @@
 import { InferSelectModel } from "drizzle-orm";
-import { categoriesTable } from "../../db/schema/categories.js";
+import { categoriesTable } from "../../db/schema/index.js";
 import { APICategory } from "@seal-box/types";
 
 export function toAPICategory(category: InferSelectModel<typeof categoriesTable>): APICategory {

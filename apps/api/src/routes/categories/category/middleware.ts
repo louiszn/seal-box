@@ -1,7 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { usersTable } from "../../../db/schema/users.js";
+import { usersTable, categoriesTable } from "../../../db/schema/index.js";
 import { and, eq, InferSelectModel } from "drizzle-orm";
-import { categoriesTable } from "../../../db/schema/categories.js";
 import db from "../../../db/index.js";
 
 export async function requireCategoryExists(

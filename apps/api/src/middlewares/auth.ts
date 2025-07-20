@@ -3,8 +3,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import db from "../db/index.js";
 import { eq } from "drizzle-orm";
 
-import { devicesTable } from "../db/schema/devices.js";
-import { usersTable } from "../db/schema/users.js";
+import { devicesTable, usersTable } from "../db/schema/index.js";
 
 import { verifyAccessToken } from "@seal-box/libs";
 

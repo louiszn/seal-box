@@ -3,7 +3,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { eq } from "drizzle-orm";
 
 import db from "../../db/index.js";
-import { categoriesTable } from "../../db/schema/categories.js";
+import { categoriesTable } from "../../db/schema/index.js";
 
 import { createCategorySchema } from "./schema.js";
 import { toAPICategory } from "./transfer.js";

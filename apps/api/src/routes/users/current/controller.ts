@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 import { eq } from "drizzle-orm";
 
-import { usersTable } from "../../../db/schema/users.js";
+import { usersTable } from "../../../db/schema/index.js";
 
 import { modifyCurrentUserSchema } from "./schema.js";
 

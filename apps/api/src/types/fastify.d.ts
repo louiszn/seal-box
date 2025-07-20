@@ -1,7 +1,5 @@
 import { InferSelectModel } from "drizzle-orm";
-import { usersTable } from "../db/schema/users.js";
-import { devicesTable } from "../db/schema/devices.js";
-import { categoriesTable } from "../db/schema/categories.js";
+import { usersTable, devicesTable, categoriesTable } from "../db/schema/index.js";
 
 declare module "fastify" {
 	interface FastifyRequest {
