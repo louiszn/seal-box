@@ -36,6 +36,13 @@
 			"when": 1752998475353,
 			"tag": "0004_fluffy_chameleon",
 			"breakpoints": true
+		},
+		{
+			"idx": 5,
+			"version": "7",
+			"when": 1753014899187,
+			"tag": "0005_lucky_giant_man",
+			"breakpoints": true
 		}
 	]
 }
