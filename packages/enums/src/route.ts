@@ -6,6 +6,7 @@ export enum APIRoutePrefix {
 	Incomes = "/incomes",
 }
 
+// Users
 export enum APIUsersRoute {
 	GetById = `/:userId`,
 	Current = `/@me`,
@@ -16,6 +17,7 @@ export enum APICurrentUserRoute {
 	Modify = `/`,
 }
 
+// Authentication
 export enum APIAuthRoute {
 	Register = "/register",
 	Login = "/login",
@@ -23,6 +25,7 @@ export enum APIAuthRoute {
 	Logout = "/logout",
 }
 
+// Category
 export enum APICategoriesRoute {
 	Get = "/",
 	Create = "/",
@@ -35,6 +38,7 @@ export enum APICategoryRoute {
 	Delete = "/",
 }
 
+// Income
 export enum APIIncomesRoute {
 	Get = "/",
 	Create = "/",
