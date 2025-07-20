@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { requireAuth } from "../../middlewares/auth.js";
 import { APIIncomesRoute } from "@seal-box/enums";
 import { createIncomeHandler, getIncomesHandler } from "./controller.js";
-import { incomeRoute } from "./income/index.js";
+import incomeRoute from "./income/index.js";
 
 export default function incomesRoute(app: FastifyInstance) {
 	app.addHook("onRequest", requireAuth);

@@ -3,7 +3,7 @@ import { FastifyInstance } from "fastify";
 import { deleteIncomeHandler, getIncomeHandler, modifyIncomeHandler } from "./controller.js";
 import { requireIncomeExists } from "./middleware.js";
 
-export function incomeRoute(app: FastifyInstance) {
+export default function incomeRoute(app: FastifyInstance) {
 	app.addHook("onRequest", requireIncomeExists);
 
 	app.get(APIIncomeRoute.Get, getIncomeHandler);
