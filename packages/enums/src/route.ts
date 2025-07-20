@@ -46,7 +46,7 @@ export enum APIRoute {
 
 	GetCategories = `${APIRoutePrefix.Categories}${APICategoriesRoute.Get}`,
 	CreateCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.Create}`,
-	GetCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Get}`,
-	ModifyCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Modify}`,
-	DeleteCategory = `${APICategoriesRoute.WithId}${APICategoryRoute.Delete}`,
+	GetCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.WithId}${APICategoryRoute.Get}`,
+	ModifyCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.WithId}${APICategoryRoute.Modify}`,
+	DeleteCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.WithId}${APICategoryRoute.Delete}`,
 }
