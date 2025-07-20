@@ -56,7 +56,7 @@ export enum APIIncomeRoute {
 export enum APIExpensesRoute {
 	Get = "/",
 	Create = "/",
-	WithId = "/:incomeId",
+	WithId = "/:expenseId",
 }
 
 export enum APIExpenseRoute {
