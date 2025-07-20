@@ -4,10 +4,10 @@ import { eq } from "drizzle-orm";
 
 import { usersTable } from "../../../db/schema/users.js";
 
-import { APIUser } from "@seal-box/types";
 import { modifyCurrentUserSchema } from "./schema.js";
 
 import db from "../../../db/index.js";
+import { toAPIUser } from "../transfer.js";
 
 export async function getCurrentUserHandler(request: FastifyRequest, reply: FastifyReply) {
 	const { user } = request;
@@ -16,11 +16,7 @@ export async function getCurrentUserHandler(request: FastifyRequest, reply: Fast
 		return;
 	}
 
-	reply.status(200).send({
-		id: user.id,
-		email: user.email,
-		createdAt: user.createdAt.getTime(),
-	} satisfies APIUser);
+	reply.status(200).send(toAPIUser(user));
 }
 
 export async function modifyCurrentUserHandler(request: FastifyRequest, reply: FastifyReply) {
@@ -48,9 +44,5 @@ export async function modifyCurrentUserHandler(request: FastifyRequest, reply: F
 		.where(eq(usersTable.id, user.id))
 		.returning();
 
-	reply.status(200).send({
-		id: newUser.id,
-		email: newUser.email,
-		createdAt: newUser.createdAt.getTime(),
-	} satisfies APIUser);
+	reply.status(200).send(toAPIUser(newUser));
 }

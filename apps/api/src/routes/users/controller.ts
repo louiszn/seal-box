@@ -5,7 +5,7 @@ import db from "../../db/index.js";
 
 import { usersTable } from "../../db/schema/users.js";
 
-import { APIUser } from "@seal-box/types";
+import { toAPIUser } from "./transfer.js";
 
 export async function getUserByIdHandler(
 	request: FastifyRequest<{ Params: { userId: string } }>,
@@ -23,9 +23,5 @@ export async function getUserByIdHandler(
 		return;
 	}
 
-	reply.status(200).send({
-		id: user.id,
-		email: user.email,
-		createdAt: user.createdAt.getTime(),
-	} satisfies APIUser);
+	reply.status(200).send(toAPIUser(user));
 }
