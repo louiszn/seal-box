@@ -3,6 +3,7 @@ export enum APIRoutePrefix {
 	Users = "/users",
 	Auth = "/auth",
 	Categories = "/categories",
+	Incomes = "/incomes",
 }
 
 export enum APIUsersRoute {
@@ -34,6 +35,18 @@ export enum APICategoryRoute {
 	Delete = "/",
 }
 
+export enum APIIncomesRoute {
+	Get = "/",
+	Create = "/",
+	WithId = "/:incomeId",
+}
+
+export enum APIIncomeRoute {
+	Get = "/",
+	Modify = "/",
+	Delete = "/",
+}
+
 export enum APIRoute {
 	GetCurrentUser = `${APIRoutePrefix.Users}${APIUsersRoute.Current}${APICurrentUserRoute.Get}`,
 	ModifyCurrentUser = `${APIRoutePrefix.Users}${APIUsersRoute.Current}${APICurrentUserRoute.Modify}`,
@@ -49,4 +62,10 @@ export enum APIRoute {
 	GetCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.WithId}${APICategoryRoute.Get}`,
 	ModifyCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.WithId}${APICategoryRoute.Modify}`,
 	DeleteCategory = `${APIRoutePrefix.Categories}${APICategoriesRoute.WithId}${APICategoryRoute.Delete}`,
+
+	GetIncomes = `${APIRoutePrefix.Incomes}${APIIncomesRoute.Get}`,
+	CreateIncome = `${APIRoutePrefix.Incomes}${APIIncomesRoute.Create}`,
+	GetIncome = `${APIRoutePrefix.Incomes}${APIIncomesRoute.WithId}${APIIncomeRoute.Get}`,
+	ModifyIncome = `${APIRoutePrefix.Incomes}${APIIncomesRoute.WithId}${APIIncomeRoute.Modify}`,
+	DeleteIncome = `${APIRoutePrefix.Incomes}${APIIncomesRoute.WithId}${APIIncomeRoute.Delete}`,
 }
