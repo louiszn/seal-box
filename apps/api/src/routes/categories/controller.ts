@@ -1,10 +1,9 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { eq, InferSelectModel } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import db from "../../db/index.js";
 import { categoriesTable } from "../../db/schema/categories.js";
-import { usersTable } from "../../db/schema/users.js";
 
 import { createCategorySchema } from "./schema.js";
 import { toAPICategory } from "./transfer.js";
@@ -12,7 +11,11 @@ import { toAPICategory } from "./transfer.js";
 import { generateId } from "@seal-box/libs";
 
 export async function getCategoriesHandler(request: FastifyRequest, reply: FastifyReply) {
-	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
+	const { user } = request;
+
+	if (!user) {
+		return;
+	}
 
 	const categories = await db
 		.select()
@@ -35,7 +38,11 @@ export async function createCategoryHandler(request: FastifyRequest, reply: Fast
 		return;
 	}
 
-	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
+	const { user } = request;
+
+	if (!user) {
+		return;
+	}
 
 	const { name, description, type } = parseResult.data;
 

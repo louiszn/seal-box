@@ -49,6 +49,6 @@ export async function requireAuth(request: FastifyRequest, reply: FastifyReply) 
 		return;
 	}
 
-	request.setDecorator("user", user);
-	request.setDecorator("device", device);
+	request.user = user;
+	request.device = device;
 }

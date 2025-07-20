@@ -25,5 +25,5 @@ export async function requireCategoryExists(
 		return;
 	}
 
-	request.setDecorator("category", category);
+	request.category = category;
 }

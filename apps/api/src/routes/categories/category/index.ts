@@ -4,8 +4,6 @@ import { deleteCategoryHandler, getCategoryHandler, modifyCategoryHandler } from
 import { requireCategoryExists } from "./middleware.js";
 
 export function categoryRoute(app: FastifyInstance) {
-	app.decorateRequest("category", null);
-
 	app.addHook("onRequest", requireCategoryExists);
 
 	app.get(APICategoryRoute.Get, getCategoryHandler);

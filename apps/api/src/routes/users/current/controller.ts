@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { eq, InferSelectModel } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { usersTable } from "../../../db/schema/users.js";
 
@@ -10,7 +10,11 @@ import { modifyCurrentUserSchema } from "./schema.js";
 import db from "../../../db/index.js";
 
 export async function getCurrentUserHandler(request: FastifyRequest, reply: FastifyReply) {
-	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
+	const { user } = request;
+
+	if (!user) {
+		return;
+	}
 
 	reply.status(200).send({
 		id: user.id,
@@ -20,7 +24,11 @@ export async function getCurrentUserHandler(request: FastifyRequest, reply: Fast
 }
 
 export async function modifyCurrentUserHandler(request: FastifyRequest, reply: FastifyReply) {
-	const user = request.getDecorator<InferSelectModel<typeof usersTable>>("user");
+	const { user } = request;
+
+	if (!user) {
+		return;
+	}
 
 	const payload = await modifyCurrentUserSchema.safeParseAsync(request.body);
 

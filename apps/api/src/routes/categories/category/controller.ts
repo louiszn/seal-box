@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { eq, InferSelectModel } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { toAPICategory } from "../transfer.js";
 import { modifyCategorySchema } from "./schema.js";
@@ -8,7 +8,11 @@ import { categoriesTable } from "../../../db/schema/categories.js";
 import db from "../../../db/index.js";
 
 export function getCategoryHandler(request: FastifyRequest, reply: FastifyReply) {
-	const category = request.getDecorator<InferSelectModel<typeof categoriesTable>>("category");
+	const { category } = request;
+
+	if (!category) {
+		return;
+	}
 
 	reply.send(toAPICategory(category));
 }
@@ -24,7 +28,11 @@ export async function modifyCategoryHandler(request: FastifyRequest, reply: Fast
 		return;
 	}
 
-	const category = request.getDecorator<InferSelectModel<typeof categoriesTable>>("category");
+	const { category } = request;
+
+	if (!category) {
+		return;
+	}
 
 	const { name, description } = parseResult.data;
 
@@ -41,7 +49,11 @@ export async function modifyCategoryHandler(request: FastifyRequest, reply: Fast
 }
 
 export async function deleteCategoryHandler(request: FastifyRequest, reply: FastifyReply) {
-	const category = request.getDecorator<InferSelectModel<typeof categoriesTable>>("category");
+	const { category } = request;
+
+	if (!category) {
+		return;
+	}
 
 	await db.delete(categoriesTable).where(eq(categoriesTable.id, category.id));
 
