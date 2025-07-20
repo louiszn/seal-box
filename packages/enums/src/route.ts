@@ -4,6 +4,7 @@ export enum APIRoutePrefix {
 	Auth = "/auth",
 	Categories = "/categories",
 	Incomes = "/incomes",
+	Expenses = "/expenses",
 }
 
 // Users
@@ -46,6 +47,19 @@ export enum APIIncomesRoute {
 }
 
 export enum APIIncomeRoute {
+	Get = "/",
+	Modify = "/",
+	Delete = "/",
+}
+
+// Expense
+export enum APIExpensesRoute {
+	Get = "/",
+	Create = "/",
+	WithId = "/:incomeId",
+}
+
+export enum APIExpenseRoute {
 	Get = "/",
 	Modify = "/",
 	Delete = "/",
