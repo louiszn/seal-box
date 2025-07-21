@@ -12,7 +12,15 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint ."
 	},
+	"dependencies": {
+		"@seal-box/enums": "workspace:*",
+		"@tanstack/svelte-form": "^1.14.0",
+		"@tanstack/zod-form-adapter": "^0.42.1",
+		"svelte-french-toast": "^1.2.0",
+		"zod": "^4.0.5"
+	},
 	"devDependencies": {
+		"@seal-box/types": "workspace:*",
 		"@sveltejs/adapter-auto": "^6.0.1",
 		"@sveltejs/kit": "^2.23.0",
 		"@sveltejs/vite-plugin-svelte": "^6.0.0",
