@@ -38,6 +38,7 @@ export default ts.config(
 			parser: svelteParser,
 			parserOptions: {
 				svelteConfig,
+				parser: ts.parser,
 			},
 			globals: {
 				...globals.browser,
