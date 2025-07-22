@@ -114,7 +114,7 @@ export async function loginHandler(request: FastifyRequest, reply: FastifyReply)
 	const refreshToken = await signRefreshToken(user.id, device.id, config.jwtSecret, createdAt);
 
 	reply.setCookie("refreshToken", refreshToken, {
-		maxAge: REFRESH_TOKEN_AGE,
+		maxAge: Math.floor(REFRESH_TOKEN_AGE / 1000),
 	});
 
 	reply.status(200).send({
@@ -191,7 +191,7 @@ export async function refreshTokenHandler(
 		.where(eq(devicesTable.id, deviceId));
 
 	reply.setCookie("refreshToken", newRefreshToken, {
-		maxAge: REFRESH_TOKEN_AGE,
+		maxAge: Math.floor(REFRESH_TOKEN_AGE / 1000),
 	});
 
 	reply.status(200).send({
