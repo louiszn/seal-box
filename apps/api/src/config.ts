@@ -16,6 +16,7 @@ const envSchema = z.object({
 	PEPPER_KEY: z.string().nonempty(),
 	JWT_SECRET: z.string().nonempty(),
 	COOKIE_SECRET: z.string().nonempty(),
+	CORS_ORIGIN: z.string().nonempty(),
 });
 
 const result = envSchema.safeParse(process.env);
@@ -33,6 +34,7 @@ const config = {
 	databaseURL: data.DATABASE_URL,
 	pepperKey: data.PEPPER_KEY,
 	jwtSecret: data.JWT_SECRET,
+	corsOrigin: data.CORS_ORIGIN,
 	cookie: {
 		secure: data.NODE_ENV === "production",
 		httpOnly: true,

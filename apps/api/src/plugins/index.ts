@@ -7,6 +7,7 @@ import config from "../config.js";
 
 export function usePlugins(app: FastifyInstance) {
 	app.register(cors, {
+		origin: config.corsOrigin,
 		credentials: true,
 	});
 
