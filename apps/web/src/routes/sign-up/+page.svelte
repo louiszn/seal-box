@@ -69,14 +69,14 @@
 	<div class="text-text-primary text-center text-5xl font-bold">SealBox</div>
 
 	<form
-		class="text-text bg-surface-primary flex w-[30%] flex-col gap-4 rounded-2xl p-10 text-lg shadow-lg"
+		class="text-text bg-surface-primary flex w-[30%] flex-col gap-6 rounded-2xl p-10 text-lg shadow-lg"
 		onsubmit={(e) => {
 			e.preventDefault();
 			e.stopPropagation();
 			form.handleSubmit();
 		}}
 	>
-		<div class="text-text-primary mb-8 text-center text-3xl font-bold">Sign Up</div>
+		<div class="text-text-primary mb-4 text-center text-3xl font-bold">Sign Up</div>
 
 		<div class="flex flex-col gap-6">
 			<!-- Email -->
@@ -87,7 +87,7 @@
 				{#snippet children(field)}
 					<label class="flex flex-col gap-1">
 						<span
-							class={`text-sm font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
+							class={`text-md font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
 							>Email</span
 						>
 						<input
@@ -119,7 +119,7 @@
 				{#snippet children(field)}
 					<label class="flex flex-col gap-1">
 						<span
-							class={`text-sm font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
+							class={`text-md font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
 							>Password</span
 						>
 						<input
@@ -159,7 +159,7 @@
 				{#snippet children(field)}
 					<label class="flex flex-col gap-1">
 						<span
-							class={`text-sm font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
+							class={`text-md font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
 							>Confirm password</span
 						>
 						<input
@@ -187,7 +187,7 @@
 			class="bg-accent-secondary mt-4 cursor-pointer rounded-full px-6 py-3 text-lg font-bold transition-all duration-200 hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50"
 			disabled={isSubmitting}
 		>
-			{isSubmitting ? "Submitting..." : "Sign up"}
+			{isSubmitting ? "Submitting..." : "Sign Up"}
 		</button>
 	</form>
 </div>
