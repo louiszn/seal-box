@@ -14,23 +14,23 @@ interface UserContext {
 
 export function createUserContext() {
 	const user = writable<APIUser | null>(null);
-	const ready = writable<boolean>(true);
+	const ready = writable<boolean>(false);
 
 	const init = async () => {
 		if (!REST.getAccessToken()) {
-			ready.set(false);
+			ready.set(true);
 			return;
 		}
 
 		const [data, error] = await REST.get<APIUser>(APIRoute.GetCurrentUser);
 
 		if (error) {
-			ready.set(false);
+			ready.set(true);
 			return;
 		}
 
 		user.set(data);
-		ready.set(false);
+		ready.set(true);
 	};
 
 	const context: UserContext = {
