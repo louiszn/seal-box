@@ -160,15 +160,16 @@ export default abstract class REST {
 	}
 
 	public static getAccessToken() {
-		return localStorage.getItem("accessToken") || null;
+		return sessionStorage.getItem("accessToken") || localStorage.getItem("accessToken") || null;
 	}
 
 	public static removeAccessToken() {
-		return localStorage.removeItem("accessToken");
+		sessionStorage.removeItem("accessToken");
+		localStorage.removeItem("accessToken");
 	}
 
-	public static setAccessToken(token: string) {
-		return localStorage.setItem("accessToken", token);
+	public static setAccessToken(token: string, remember = false) {
+		return (remember ? localStorage : sessionStorage).setItem("accessToken", token);
 	}
 
 	private static async getJSONResponse<T>(response: Response): Promise<T | ResponseError | object> {
