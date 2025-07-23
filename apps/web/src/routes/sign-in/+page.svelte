@@ -54,7 +54,7 @@
 
 					REST.setAccessToken(data.accessToken);
 
-					app.init();
+					app.reinit();
 
 					return data;
 				})(),
