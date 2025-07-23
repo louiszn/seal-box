@@ -1,21 +1,29 @@
 <script lang="ts">
-	import REST, { type ResponseError } from "$lib/REST.js";
-	import { APIRoute } from "@seal-box/enums";
-	import type { APILoginBody, APILoginResponse } from "@seal-box/types";
 	import { createForm } from "@tanstack/svelte-form";
-	import { fade } from "svelte/transition";
 	import { z } from "zod";
 	import toast from "svelte-french-toast";
-	import { getUserContext } from "$lib/contexts/user.js";
+
+	import REST, { type ResponseError } from "$lib/REST.js";
+
+	import { APIRoute } from "@seal-box/enums";
+	import type { APILoginBody, APILoginResponse } from "@seal-box/types";
+
 	import { goto } from "$app/navigation";
+
+	import { getUserContext } from "$lib/contexts/user.js";
 	import { getAppContext } from "$lib/contexts/app.js";
 
 	const app = getAppContext();
 
+	interface LoginBody extends APILoginBody {
+		remember: boolean;
+	}
+
 	const schema = z.object({
-		email: z.email("Please enter a valid email address"),
-		password: z.string().nonempty("Password is required"),
-	}) satisfies z.ZodType<APILoginBody>;
+		email: z.email(),
+		password: z.string().nonempty(),
+		remember: z.boolean().default(false),
+	}) satisfies z.ZodType<LoginBody>;
 
 	let isSubmitting = $state(false);
 
@@ -23,9 +31,10 @@
 		defaultValues: {
 			email: "",
 			password: "",
-		} as APILoginBody,
+			remember: false,
+		} as LoginBody,
 		async onSubmit({ value }) {
-			const { email, password } = value;
+			const { email, password, remember } = value;
 
 			if (isSubmitting) {
 				return;
@@ -52,7 +61,7 @@
 						throw error;
 					}
 
-					REST.setAccessToken(data.accessToken);
+					REST.setAccessToken(data.accessToken, remember);
 
 					app.init();
 
@@ -83,18 +92,18 @@
 </script>
 
 {#if !$user}
-	<div class="flex h-screen w-full flex-col items-center justify-center gap-10">
+	<div class="flex h-screen w-full flex-col items-center justify-center gap-1">
 		<form
-			class="text-text bg-surface-primary flex w-[30%] flex-col gap-6 rounded-2xl p-10 text-lg shadow-lg"
+			class="text-text bg-surface-primary flex w-[450px] flex-col gap-6 rounded-2xl p-10 text-lg shadow-xl"
 			onsubmit={(e) => {
 				e.preventDefault();
 				e.stopPropagation();
 				form.handleSubmit();
 			}}
 		>
-			<div class="mb-4 flex flex-col items-center font-bold">
-				<span class="text-text-primary text-2xl">Welcome back!</span>
-				<span class="text-text-secondary text-lg">Let's dive into your personal account!</span>
+			<div class="mb-4 flex flex-col items-center">
+				<span class="text-text-primary text-2xl font-bold">Welcome Back</span>
+				<span class="text-text-secondary text-sm">Let's dive into your personal account</span>
 			</div>
 
 			<div class="flex flex-col gap-6">
@@ -104,11 +113,9 @@
 					validators={{ onChange: schema.shape.email, onBlur: schema.shape.email }}
 				>
 					{#snippet children(field)}
-						<label class="flex flex-col gap-1">
-							<span
-								class={`text-md font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
-								>Email</span
-							>
+						<div class="flex flex-col gap-1">
+							<label for={field.name}> Email </label>
+
 							<input
 								id={field.name}
 								name={field.name}
@@ -116,14 +123,11 @@
 								value={field.state.value}
 								onblur={field.handleBlur}
 								oninput={(e) => field.handleChange(e.currentTarget.value)}
-								class={`border-b-2 bg-transparent px-2 py-1 text-lg outline-none transition-all duration-150 ${field.state.meta.errors.length ? "border-red-500 text-red-500" : "border-[#d0d7de]"}`}
+								placeholder="your@email.com"
+								required
+								class={`outline-border-secondary rounded-lg bg-transparent px-3 py-1 outline-2 transition-all duration-150 ${field.state.meta.errors.length ? "text-red-500" : ""}`}
 							/>
-							{#if field.state.meta.errors.length}
-								<em role="alert" class="text-sm text-red-500" in:fade={{ duration: 50 }}
-									>{field.state.meta.errors[0]?.message}</em
-								>
-							{/if}
-						</label>
+						</div>
 					{/snippet}
 				</form.Field>
 
@@ -136,11 +140,9 @@
 					}}
 				>
 					{#snippet children(field)}
-						<label class="flex flex-col gap-1">
-							<span
-								class={`text-md font-semibold ${field.state.meta.errors.length ? "text-red-500" : ""}`}
-								>Password</span
-							>
+						<div class="flex flex-col gap-1">
+							<label for={field.name}> Password </label>
+
 							<input
 								id={field.name}
 								name={field.name}
@@ -148,29 +150,43 @@
 								value={field.state.value}
 								onblur={field.handleBlur}
 								oninput={(e) => field.handleChange(e.currentTarget.value)}
-								class={`border-b-2 bg-transparent px-2 py-1 text-lg outline-none transition-all duration-150 ${field.state.meta.errors.length ? "border-red-500 text-red-500" : "border-[#d0d7de]"}`}
+								placeholder="Master secret"
+								required
+								class={`outline-border-secondary rounded-lg bg-transparent px-3 py-1 outline-2 transition-all duration-150 ${field.state.meta.errors.length ? "text-red-500" : ""}`}
 							/>
-							{#if field.state.meta.errors.length}
-								<em role="alert" class="text-sm text-red-500" in:fade={{ duration: 50 }}
-									>{field.state.meta.errors[0]?.message}</em
-								>
-							{/if}
-						</label>
+						</div>
 					{/snippet}
 				</form.Field>
+			</div>
+
+			<div class="flex items-center justify-between">
+				<form.Field name="remember">
+					{#snippet children(field)}
+						<div class="flex items-center gap-2">
+							<input
+								type="checkbox"
+								onchange={(e) => field.handleChange(e.currentTarget.checked)}
+								class="cursor-pointer"
+							/>
+							<label for={field.name}>Remember me</label>
+						</div>
+					{/snippet}
+				</form.Field>
+
+				<span class="text-text-ice cursor-pointer hover:underline">Forgot password?</span>
 			</div>
 
 			<!-- Submit Button -->
 			<button
 				type="submit"
-				class="bg-accent-secondary mt-4 cursor-pointer rounded-full px-6 py-3 text-lg font-bold transition-all duration-200 hover:brightness-90 disabled:cursor-not-allowed disabled:opacity-50"
+				class="bg-accent-tertiary border-accent-secondary text-text-ice mt-4 cursor-pointer rounded-2xl border-2 px-6 py-3 text-lg font-bold transition-all duration-200 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50"
 				disabled={isSubmitting}
 			>
 				{isSubmitting ? "Submitting..." : "Sign In"}
 			</button>
 
 			<span class="text-text-secondary text-center"
-				>Don't have an account? <a href="/sign-up" class="text-blue-500">Create one!</a></span
+				>Don't have an account? <a href="/sign-up" class="text-text-ice">Create one!</a></span
 			>
 		</form>
 	</div>

@@ -1,16 +1,29 @@
+@import url(https://fonts.bunny.net/css?family=inter:300,400,500,600,700);
+
 @import "tailwindcss";
 
 @theme {
-	--color-surface-primary: #f9fafb;
-	--color-surface-secondary: #cbe7f5;
+	--color-surface-primary: #ffffff;
+	--color-surface-secondary: #eff4f9;
+	--color-surface-tertiary: #f4f7f9;
 
-	--color-text-primary: #2e2e2e;
-	--color-text-secondary: #6a6c77;
+	/* Text Colors */
+	--color-text-primary: #1c1f26;
+	--color-text-secondary: #4a5568;
+	--color-text-tertiary: #718096;
+	--color-text-muted: #a0aec0;
+	--color-text-ice: #2b6cb0;
 
-	--color-accent-primary: #249beb;
-	--color-accent-secondary: #3cc6ff;
+	--color-accent-primary: #0ea5e9;
+	--color-accent-secondary: #7dd3fc;
+	--color-accent-tertiary: #bae6fd;
+
+	/* Border Colors */
+	--color-border-primary: #767676;
+	--color-border-secondary: #b2b2b2;
 }
 
 body {
 	background-color: var(--color-surface-secondary);
+	font-family: "Inter", sans-serif;
 }
