@@ -13,6 +13,7 @@
 		"lint": "prettier --check . && eslint ."
 	},
 	"dependencies": {
+		"@iconify/svelte": "^5.0.0",
 		"@seal-box/enums": "workspace:*",
 		"@tanstack/svelte-form": "^1.14.0",
 		"@tanstack/zod-form-adapter": "^0.42.1",
