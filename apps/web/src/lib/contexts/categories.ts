@@ -19,6 +19,11 @@ export function createCategoriesContext() {
 	const init = async () => {
 		ready.set(false);
 
+		if (!REST.getAccessToken()) {
+			ready.set(true);
+			return;
+		}
+
 		const [data, error] = await REST.get<APICategory[]>(APIRoute.GetCategories);
 
 		if (error) {

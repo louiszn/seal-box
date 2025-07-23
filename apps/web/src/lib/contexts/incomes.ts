@@ -19,6 +19,11 @@ export function createIncomesContext() {
 	const init = async () => {
 		ready.set(false);
 
+		if (!REST.getAccessToken()) {
+			ready.set(true);
+			return;
+		}
+
 		const [data, error] = await REST.get<APIIncome[]>(APIRoute.GetIncomes);
 
 		if (error) {

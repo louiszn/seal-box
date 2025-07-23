@@ -17,6 +17,8 @@ export function createUserContext() {
 	const ready = writable<boolean>(false);
 
 	const init = async () => {
+		ready.set(false);
+
 		if (!REST.getAccessToken()) {
 			ready.set(true);
 			return;
