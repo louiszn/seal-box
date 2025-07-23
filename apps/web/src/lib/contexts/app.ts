@@ -1,39 +1,36 @@
 import { getContext, setContext } from "svelte";
 import { createUserContext } from "./user.js";
-import { writable, type Writable } from "svelte/store";
+import { derived, type Readable } from "svelte/store";
+import { createIncomesContext } from "./incomes.js";
+import { createExpensesContext } from "./expenses.js";
+import { createCategoriesContext } from "./categories.js";
 
 const APP_CONTEXT = Symbol();
 
 interface AppContext {
 	init: () => Promise<void>;
-	reinit: () => Promise<void>;
-	ready: Writable<boolean>;
+	ready: Readable<boolean>;
 }
 
 export function createAppContext() {
-	const ready = writable(false);
-
 	const userContext = createUserContext();
+	const incomesContext = createIncomesContext();
+	const expensesContext = createExpensesContext();
+	const categoriesContext = createCategoriesContext();
+
+	const contexts = [userContext, incomesContext, expensesContext, categoriesContext];
+
+	const ready = derived(
+		contexts.map((ctx) => ctx.ready),
+		(readyStates) => readyStates.every(($ready) => $ready),
+	);
 
 	const init = async () => {
-		ready.set(false);
-
-		await userContext.init();
-
-		ready.set(true);
-	};
-
-	const reinit = async () => {
-		ready.set(false);
-
-		await userContext.init();
-
-		ready.set(true);
+		await Promise.all(contexts.map((ctx) => ctx.init()));
 	};
 
 	const context: AppContext = {
 		init,
-		reinit,
 		ready,
 	};
 
